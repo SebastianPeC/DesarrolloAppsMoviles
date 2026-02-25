@@ -1,52 +1,70 @@
-// Clase abstracta que define un contrato para clases que pueden hablar
-abstract class Comunicador {
-  void hablar(); // Método que obliga a implementar
+abstract class Animal {}
+
+abstract class Mamifero extends Animal {}
+
+abstract class Ave extends Animal {}
+
+abstract class Pez extends Animal {}
+
+mixin Volar {
+  void volar() => print('estoy volando');
 }
 
-// Mixin para agregar la habilidad de correr
-mixin Corredor {
-  void correr() {
-    print("¡Estoy corriendo!");
-  }
+mixin Caminar {
+  void caminar() => print('estoy caminando');
 }
 
-// Mixin para agregar la habilidad de volar
-mixin Volador {
-  void volar() {
-    print("Estoy volando en el cielo");
-  }
+mixin Nadar {
+  void nadar() => print('estoy nadando');
 }
 
-// Clase Humano que implementa Comunicador y usa Corredor
-class Humano extends Comunicador with Corredor {
-  String nombre;
+// Mamíferos
+class Delfin extends Mamifero with Nadar {}
 
-  Humano(this.nombre);
+class Murcielago extends Mamifero with Caminar, Volar {}
 
-  @override
-  void hablar() {
-    print("$nombre dice: ¡Hola!");
-  }
-}
+class Gato extends Mamifero with Caminar {}
 
-// Clase Pajaro que implementa Comunicador y usa Volador
-class Pajaro extends Comunicador with Volador {
-  String especie;
+// Aves
+class Pato extends Ave with Caminar, Volar, Nadar {}
 
-  Pajaro(this.especie);
+class Paloma extends Ave with Caminar, Volar {}
 
-  @override
-  void hablar() {
-    print("El $especie hace pío pío");
-  }
-}
+// Peces
+class Tiburon extends Pez with Nadar {}
+
+class PezVolador extends Pez with Nadar, Volar {}
 
 void main() {
-  Humano persona = Humano("Sebastián");
-  persona.hablar();
-  persona.correr();
+  print('\n--Delfin--');
+  final flipper = Delfin();
+  flipper.nadar();
 
-  Pajaro loro = Pajaro("loro");
-  loro.hablar();
-  loro.volar();
+  print('\n--Murcielago--');
+  final batman = Murcielago();
+  batman.caminar();
+  batman.volar();
+
+  print('\n--Gato--');
+  final garfield = Gato();
+  garfield.caminar();
+
+  final pato = Pato();
+  pato.caminar();
+  pato.volar();
+  pato.nadar();
+
+  print('\n--Paloma--');
+  final paloma = Paloma();
+  paloma.caminar();
+  paloma.volar();
+
+  print('\n--Tiburon--');
+  final tiburon = Tiburon();
+  tiburon.nadar();
+
+  print('\n--PezVolador--');
+  final pezVolador = PezVolador();
+  pezVolador.nadar();
+  pezVolador.volar();
 }
